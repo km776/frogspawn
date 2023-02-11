@@ -5,11 +5,11 @@
 
 // definitions
 const Discord = require('discord.js');
-const https = require('https');
-const { Client, GatewayIntentBits } = require('discord.js');
+// const https = require('https');
+// const { Client, GatewayIntentBits } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
-const mylist = ["Drink a glass of water"]
-const removelist = []
+// const mylist = ["Drink a glass of water"]
+// const removelist = []
 
 
 // declaring intents
@@ -40,24 +40,24 @@ client.on("ready", () => {
 
 // function - random name generator
 function randomName() {
-  var allNames = ["Hoppy", "Speckles", "Naveen", "Tiana", "Hop Pop", "Polly", "Sprig", "Bubbles", "Croak", "Yoda", "Fletcher", "Kermit", "Toadie", "Jojo", "Houdini", "Lily", "Jasper"]
-  var frogName = allNames[Math.floor(Math.random() * allNames.length)];
+  let allNames = ["Hoppy", "Speckles", "Naveen", "Tiana", "Hop Pop", "Polly", "Sprig", "Bubbles", "Croak", "Yoda", "Fletcher", "Kermit", "Toadie", "Jojo", "Houdini", "Lily", "Jasper"]
+  let frogName = allNames[Math.floor(Math.random() * allNames.length)];
   console.log(frogName);
   return frogName;
 }
 
 // function - random trait generator
 function randomTrait() {
-  var allTraits = ["Adamant", "Bashful", "Brave", "Bold", "Calm", "Careful", "Docile", "Gentle", "Hardy", "Hasty", "Impish", "Jolly", "Lax", "Mild", "Modest", "Naive", "Quiet", "Quirky", "Relaxed", "Sassy", "Serious", "Timid"]
-  var traitName = allTraits[Math.floor(Math.random() * allTraits.length)];
+  let allTraits = ["Adamant", "Bashful", "Brave", "Bold", "Calm", "Careful", "Docile", "Gentle", "Hardy", "Hasty", "Impish", "Jolly", "Lax", "Mild", "Modest", "Naive", "Quiet", "Quirky", "Relaxed", "Sassy", "Serious", "Timid"]
+  let traitName = allTraits[Math.floor(Math.random() * allTraits.length)];
   console.log(traitName);
   return traitName;
 }
 
 // function - random color generator
 function randomColor() {
-  var allColors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Pink", "Brown", "Black", "White"]
-  var colorName = allColors[Math.floor(Math.random() * allColors.length)];
+  let allColors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Pink", "Brown", "Black", "White"]
+  let colorName = allColors[Math.floor(Math.random() * allColors.length)];
   console.log(colorName);
   return colorName;
 }
@@ -155,7 +155,7 @@ client.on("messageCreate", (message) => {
       .setTimestamp()
       .setFooter({ text: "your frog friend believes in you!", iconURL: 'https://cdn.discordapp.com/attachments/1031064989643051078/1031227116324405278/froggit.png' }); // put froggit icon here
     message.channel.send({ embeds: [exampleEmbed2] });
-  };
+  }
 });
 
 client.on("messageCreate", (message) => {
@@ -173,7 +173,7 @@ client.on("messageCreate", (message) => {
       .setTimestamp()
       .setFooter({ text: "your frog friend believes in you!", iconURL: 'https://cdn.discordapp.com/attachments/1031064989643051078/1031227116324405278/froggit.png' }); // put froggit icon here
     message.channel.send({ embeds: [exampleEmbed3] });
-  };
+  }
 });
 
 
@@ -196,10 +196,4 @@ console.log(mySecret);
 client.login(mySecret);
 // ^^
 
-
-// keep this part 
-const mySecret = process.env['TOKEN']
-console.log(mySecret);
-client.login(mySecret);
-// ^^
 
