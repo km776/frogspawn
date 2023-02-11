@@ -66,9 +66,9 @@ randomColor();
 randomName();
 randomTrait();
 // test ping-pong example
-client.on("messageCreate", (message) => {
-  if (message.content.startsWith("!ping")) {
-    message.channel.send("pong!");
+client.on("messageCreate", (msg) => {
+  if (msg.content.startsWith("!ping")) {
+    msg.channel.send("i love sana-sama! <3 :)");
   }
 });
 
