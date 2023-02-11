@@ -36,7 +36,7 @@ client.on("ready", () => {
 // test ping-pong example
 client.on("messageCreate", (msg) => {
   if (msg.content.startsWith("!ping")) {
-    msg.channel.send("i love sana-sama! <3");
+    msg.channel.send("i love sana-sama! <3 :)");
   }
 });
 
