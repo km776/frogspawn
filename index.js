@@ -10,7 +10,10 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 const mylist = []
 const removelist = []
-
+var commonFrog = ['commonFrog1', 'commonFrog2', 'commonFrog3']
+var rareFrog = ['rareFrog1', 'rareFrog2', 'rareFrog3']
+var legendaryFrog = ['legendaryFrog1', 'legendaryFrog2', 'legendaryFrog3']
+var frogRarity = frogGacha();
 
 // declaring intents
 const client = new Discord.Client({
@@ -42,42 +45,55 @@ client.on("ready", () => {
 function randomName() {
   let allNames = ["Hoppy", "Speckles", "Naveen", "Tiana", "Hop Pop", "Polly", "Sprig", "Bubbles", "Croak", "Yoda", "Fletcher", "Kermit", "Toadie", "Jojo", "Houdini", "Lily", "Jasper"]
   let frogName = allNames[Math.floor(Math.random() * allNames.length)];
-  console.log(frogName);
   return frogName;
 }
 
-// function - random trait generator
-function randomTrait() {
-  let allTraits = ["Adamant", "Bashful", "Brave", "Bold", "Calm", "Careful", "Docile", "Gentle", "Hardy", "Hasty", "Impish", "Jolly", "Lax", "Mild", "Modest", "Naive", "Quiet", "Quirky", "Relaxed", "Sassy", "Serious", "Timid"]
-  let traitName = allTraits[Math.floor(Math.random() * allTraits.length)];
+/* function - random trait generator
+function speciesType() {
+  
   console.log(traitName);
   return traitName;
-}
+} */
 
 // function - random frog species generator
-function randomColor() {
-  let commonFrog = ['commonFrog1', 'commonFrog2', 'commonFrog3']
-  let rareFrog = ['rareFrog1', 'rareFrog2', 'rareFrog3']
-  let legendaryFrog = ['legendaryFrog1', 'legendaryFrog2', 'legendaryFrog3']
+function frogGacha() {
   var frogNum = Math.floor(Math.random() * 100);
     console.log(frogNum);
     if (frogNum < 10) {
-            let colorName = legendaryFrog[Math.floor(Math.random() * legendaryFrog.length)];
-      return colorName; 
+      let frogRarity = '★★★★★'
+      return frogRarity; 
     }
     else if (frogNum < 30) {
-      let colorName = rareFrog[Math.floor(Math.random() * rareFrog.length)];
-      return colorName; 
+      let frogRarity = '★★★★'
+      return frogRarity; 
     }
     else {
-            let colorName = commonFrog[Math.floor(Math.random() * commonFrog.length)];
-      return colorName; 
+      let frogRarity = '★★★'
+      return frogRarity; 
     }
   }
 
-randomColor();
+// function - description type
+function frogDescribe() {
+  if (frogRarity == '★★★★★') {
+    let frogType = "this is a LEGENDARY frog!"
+    return frogType;
+  }
+  else if (frogRarity == '★★★★') {
+    let frogType = 'this is a RARE frog!'
+    return frogType;
+  }
+  else if (frogRarity == '★★★') {
+    let frogType = 'this is a COMMON frog!'
+    return frogType;
+  }
+  console.log(frogType);
+}
+
+frogGacha();
 randomName();
-randomTrait();
+// speciesType();
+frogDescribe();
 
 // test ping-pong example
 client.on("messageCreate", (msg) => {
@@ -109,15 +125,16 @@ client.on("messageCreate", (message) => {
 // making the frog friend
 client.on("messageCreate", (message) => {
   if (message.content.startsWith("!friend")) {
+    frogRarity = frogGacha(); // randomizes rarity every single time the command is called WHICH IS WHAT I WANTED BUT DIDNT REALIZE
     const exampleEmbed = new EmbedBuilder()
       .setColor(0x0099FF)
-      .setTitle(randomName()) // rotate through a list of names
-      .setAuthor({ name: 'froggit!', iconURL: 'https://cdn.discordapp.com/attachments/1031064989643051078/1031227116324405278/froggit.png' }) // put froggit icon here
-      .setDescription('This is your frog friend! They will accompany you and help keep track of your tasks. :>')
+      .setTitle(randomName()) // rotate through a list of names -- GOOD
+      .setAuthor({ name: 'frogsinstem', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' }) // put froggit icon here
+      .setDescription(frogDescribe())
       .addFields(
         { name: '\u200B', value: '\u200B' },
-        { name: 'Trait', value: randomTrait(), inline: true }, // rotate through a list of traits like pokemon
-        { name: 'Favorite Color', value: randomColor(), inline: true }, // rotate through a list of colors
+        { name: 'Trait', value: frogDescribe(), inline: true }, // rotate through a list of traits like pokemon
+        { name: 'Rarity', value: frogRarity, inline: true }, // rotate through a list of colors
       )
       .setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
       .setTimestamp()
@@ -130,7 +147,6 @@ client.on("messageCreate", (message) => {
 
 // keep this part 
 const mySecret = process.env['TOKEN']
-console.log(mySecret);
 client.login(mySecret);
 // ^^
 
