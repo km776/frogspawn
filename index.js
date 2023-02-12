@@ -12,9 +12,9 @@ const { EmbedBuilder } = require('discord.js');
 var frogRarity = frogGacha();
 var frogName = 0;
 var indexFrog = 0;
-var nameKey = ["'★★★' = COMMON", "'★★★★' = RARE", "'★★★★★' = LEGENDARY"]
+// var nameKey = ["'★★★' = COMMON", "'★★★★' = RARE", "'★★★★★' = LEGENDARY"]
 
-// declaring intents
+// declaring intents, remember to edit bot perms
 const client = new Discord.Client({
   intents: [
     GatewayIntentBits.DirectMessages,
@@ -34,45 +34,67 @@ function intents(...i) {
   return clientIntents;
 }
 
-//showing that the bot is logged in
+//showing that the bot is logged in, provides false hope before i get (another) error
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-// beginning function - !start
+// !start command
 client.on("messageCreate", (message) => {
   let userName = message.author.username;
   if (message.content.startsWith("!start")) {
     const startEmbed = new EmbedBuilder()
       .setTitle(userName + ", I'm here to help! Here's what I can do: ")
+            .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setColor(0x0099FF)
       .addFields(
-        { name: '!start', value: "Lists all commands (not that many)."},//1 
-        { name: '!friend', value: "Gives a random frog fact."},//2
-        { name: '!donate', value: "Provides a list of links for users to donate to various environmental causes."},
-        { name: 'automatic frog reaction', value: "If a user types the word 'frog', it's automatically reacted to with a frog emote."},//3
-      ) 
+        { name: '!start', value: "Lists all commands (not that many)." },//1 
+        { name: '!friend', value: "Roll for frogs! Can you get a rare or legendary one?" },//2
+        { name: '!donate', value: "Provides a list of links for users to donate to various environmental causes." },
+        { name: '!about', value: "Briefly informs the user about the developers' motivations behind the bot, alongside links to the website, Github repository, and Replit." },
+        { name: 'automatic frog reaction', value: "If a user types the word 'frog', it's automatically reacted to with a frog emote." },//3
+      )
       .setTimestamp()
-      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png'});
+      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [startEmbed] });
   };
 });
 
-// donating function - !donate
+// !donate command
 client.on("messageCreate", (message) => {
   let userName = message.author.username;
   if (message.content.startsWith("!donate")) {
     const donateEmbed = new EmbedBuilder()
       .setTitle(userName + ", I'm so glad you decided to help me and my friends out! Here's what you can do: ")
+            .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setColor(0x0099FF)
       .addFields(
-        { name: 'A Frog House', value: "A center for local advocacy, worldwide collaboration, and ecological education that works on behalf of amphibians and the citizens of upstate New York, advocating for chemical free properties, clean water, and healthy wetlands."},//1 
-        { name: 'Froglife', value: "A national wildlife conservation charity concerned with the conservation of the UK’s reptile and amphibian species and their associated habitats"},//2
-        { name: 'The Amphibian Foundation', value: "The foundation is dedicated to connecting individuals, communities and organizations in order to create and implement lasting solutions to the global amphibian extinction crisis."},
-        { name: 'WWF - Adopt a Frog', value: "Symbolic animal adoption generously supports WWF’s global conservation efforts and build a future where people live in harmony with nature."},//3
-      ) 
+        { name: 'A Frog House', value: "A center for local advocacy, worldwide collaboration, and ecological education that works on behalf of amphibians and the citizens of upstate New York, advocating for chemical free properties, clean water, and healthy wetlands. [Donate here!](https://afroghouse.org/donate)" },//1 
+        { name: 'Froglife', value: "A national wildlife conservation charity concerned with the conservation of the UK’s reptile and amphibian species and their associated habitats. [Donate here!](https://www.froglife.org/shop/sponsorship/donate/)" },//2
+        { name: 'The Amphibian Foundation', value: "The foundation is dedicated to connecting individuals, communities and organizations in order to create and implement lasting solutions to the global amphibian extinction crisis. [Donate here!](https://amphibianfoundation.org/index.php/donations)" },
+        { name: 'WWF - Adopt a Frog', value: "Symbolic animal adoption generously supports WWF’s global conservation efforts and build a future where people live in harmony with nature. [Donate here!](https://gifts.worldwildlife.org/gift-center/gifts/Species-Adoptions/Red-Eyed-Tree-Frog.aspx)" },//3
+      )
       .setTimestamp()
-      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png'});
+      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
+    message.channel.send({ embeds: [donateEmbed] });
+  };
+});
+
+// !about command
+client.on("messageCreate", (message) => {
+  let userName = message.author.username;
+  if (message.content.startsWith("!about")) {
+    const donateEmbed = new EmbedBuilder()
+      .setTitle(userName + ", want to learn more about me?")
+      .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
+      .setColor(0x0099FF)
+      .addFields(
+        { name: 'About Me', value: "Hi there! I'm [bot], developed lovingly by three chronically online gamers at HackHERS 2023! Created at the intersection of the developers' interests, I aim to provide awareness to certain species of frogs based on their 'rarity' - that is, how endangered they are. Critically endangered species are harder to roll for (unless you have luck!), and vice versa. We all hope you enjoy! :)"},
+        { name: 'Website', value: "[Found here!](https://i.pinimg.com/736x/50/c4/8c/50c48c181116c4305840875216be56b0.jpg)", inline: true }, // SEE IF YOU WANT TO CHANGE WEBSITE NAME
+        { name: 'Github', value: "[Found here!](https://github.com/km776/frogsinstem)", inline: true },//2
+        { name: 'Replit', value: "[Found here!](https://i.pinimg.com/736x/50/c4/8c/50c48c181116c4305840875216be56b0.jpg)", inline: true }) // PUBLISH REPLIT LOL
+      .setTimestamp()
+      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [donateEmbed] });
   };
 });
@@ -80,7 +102,6 @@ client.on("messageCreate", (message) => {
 // function - random frog species generator
 function frogGacha() {
   var frogNum = Math.floor(Math.random() * 100);
-  console.log(frogNum);
   if (frogNum < 10) {
     let frogRarity = '★★★★★'
     return frogRarity;
@@ -172,7 +193,6 @@ function frogDescribe() {
     let frogType = 'This is a COMMON frog! ' + describeCommon[indexFrog];
     return frogType;
   }
-  console.log(frogType);
 }
 
 //frogGacha();
@@ -180,10 +200,10 @@ function frogDescribe() {
 // speciesType();
 //frogDescribe();
 
-// test ping-pong example
+// test ping-pong example -- add to website as a little treat for reading that far
 client.on("messageCreate", (msg) => {
   if (msg.content.startsWith("!ping")) {
-    msg.channel.send("i love sana-sama! <3 :)");
+    msg.channel.send("i love sana-sama! <3");
   }
 });
 
@@ -194,43 +214,31 @@ client.on("messageCreate", (message) => {
   }
 });
 
-// test list function --
-/*function testList () {
-    const exampleEmbed2 = new EmbedBuilder()
-      .setColor(0x0099FF)
-      .setAuthor({ name: 'froggit!', iconURL: 'https://i.imgur.com/twO2EhU.jpeg' }) // put froggit icon here
-      .setDescription('Here are your tasks:')
-      .addFields(
-        { name: 'Tasks', value: mylist[0] }
-      )
-      .setTimestamp()
-      .setFooter({ text: "your frog friend believes in you!", iconURL: 'https://i.imgur.com/AfFp7pu.png' }); // put froggit icon here
-}*/
-
 // making the frog friend
 client.on("messageCreate", (message) => {
   if (message.content.startsWith("!friend")) {
     frogRarity = frogGacha();
     frogName = randomName();
     // randomizes rarity every single time the command is called WHICH IS WHAT I WANTED BUT DIDNT REALIZE
-    const exampleEmbed = new EmbedBuilder()
+    const friendEmbed = new EmbedBuilder()
       .setColor(0x0099FF)
-      .setTitle(frogName) // rotate through a list of names -- 
+      .setTitle(frogName) // rotate through a list of names -- YES IT WORKS
+      .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setURL(frogURL())
       .setAuthor({ name: 'frogsinstem', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' })
       .setDescription(frogDescribe())
       .addFields(
         { name: '\u200B', value: '\u200B' },
-        { name: 'Scientific Name', value: frogScience(), inline: true }, // rotate through a list of traits like pokemon
-        { name: 'Rarity', value: frogRarity, inline: true }, // rotate through a list of colors
-      )
-.setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
+        { name: 'Scientific Name', value: frogScience(), inline: true },
+        { name: 'Rarity', value: frogRarity, inline: true })
+      .setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
       .setTimestamp()
       .setFooter({ text: 'brought to you by frogsinstem!', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
-    message.channel.send({ embeds: [exampleEmbed] });
+    
+    let userName = message.author.username;
+    message.channel.send({ embeds: [friendEmbed] });
   }
 });
-
 
 // keep this part 
 const mySecret = process.env['TOKEN']
