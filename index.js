@@ -9,8 +9,6 @@ const Discord = require('discord.js');
 const https = require('https');
 const { Client, GatewayIntentBits } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
-//const mylist = []
-//const removelist = []
 var frogRarity = frogGacha();
 var frogName = 0;
 var indexFrog = 0;
@@ -40,14 +38,44 @@ function intents(...i) {
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
-// ^^
 
-/* function - random trait generator
-function speciesType() {
-  
-  console.log(traitName);
-  return traitName;
-} */
+// beginning function - !start
+client.on("messageCreate", (message) => {
+  let userName = message.author.username;
+  if (message.content.startsWith("!start")) {
+    const startEmbed = new EmbedBuilder()
+      .setTitle(userName + ", I'm here to help! Here's what I can do: ")
+      .setColor(0x0099FF)
+      .addFields(
+        { name: '!start', value: "Lists all commands (not that many)."},//1 
+        { name: '!friend', value: "Gives a random frog fact."},//2
+        { name: '!donate', value: "Provides a list of links for users to donate to various environmental causes."},
+        { name: 'automatic frog reaction', value: "If a user types the word 'frog', it's automatically reacted to with a frog emote."},//3
+      ) 
+      .setTimestamp()
+      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png'});
+    message.channel.send({ embeds: [startEmbed] });
+  };
+});
+
+// donating function - !donate
+client.on("messageCreate", (message) => {
+  let userName = message.author.username;
+  if (message.content.startsWith("!donate")) {
+    const donateEmbed = new EmbedBuilder()
+      .setTitle(userName + ", I'm so glad you decided to help me and my friends out! Here's what you can do: ")
+      .setColor(0x0099FF)
+      .addFields(
+        { name: 'A Frog House', value: "A center for local advocacy, worldwide collaboration, and ecological education that works on behalf of amphibians and the citizens of upstate New York, advocating for chemical free properties, clean water, and healthy wetlands."},//1 
+        { name: 'Froglife', value: "A national wildlife conservation charity concerned with the conservation of the UK’s reptile and amphibian species and their associated habitats"},//2
+        { name: 'The Amphibian Foundation', value: "The foundation is dedicated to connecting individuals, communities and organizations in order to create and implement lasting solutions to the global amphibian extinction crisis."},
+        { name: 'WWF - Adopt a Frog', value: "Symbolic animal adoption generously supports WWF’s global conservation efforts and build a future where people live in harmony with nature."},//3
+      ) 
+      .setTimestamp()
+      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png'});
+    message.channel.send({ embeds: [donateEmbed] });
+  };
+});
 
 // function - random frog species generator
 function frogGacha() {
@@ -196,9 +224,9 @@ client.on("messageCreate", (message) => {
         { name: 'Scientific Name', value: frogScience(), inline: true }, // rotate through a list of traits like pokemon
         { name: 'Rarity', value: frogRarity, inline: true }, // rotate through a list of colors
       )
-      .setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
+.setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
       .setTimestamp()
-      .setFooter({ text: 'brought to you by frogsinstem!', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' }); // put froggit icon here
+      .setFooter({ text: 'brought to you by frogsinstem!', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [exampleEmbed] });
   }
 });
