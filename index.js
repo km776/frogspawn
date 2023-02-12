@@ -10,8 +10,8 @@ const https = require('https');
 const { Client, GatewayIntentBits } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 var frogRarity = frogGacha();
-var frogName = 0;
 var indexFrog = 0;
+var frogName, frogSpecies;
 // var nameKey = ["'★★★' = COMMON", "'★★★★' = RARE", "'★★★★★' = LEGENDARY"]
 
 // declaring intents, remember to edit bot perms
@@ -45,7 +45,7 @@ client.on("messageCreate", (message) => {
   if (message.content.startsWith("!start")) {
     const startEmbed = new EmbedBuilder()
       .setTitle(userName + ", I'm here to help! Here's what I can do: ")
-            .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
+            .setAuthor({ name: 'frogspawn', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setColor(0x0099FF)
       .addFields(
         { name: '!start', value: "Lists all commands (not that many)." },//1 
@@ -55,7 +55,7 @@ client.on("messageCreate", (message) => {
         { name: 'automatic frog reaction', value: "If a user types the word 'frog', it's automatically reacted to with a frog emote." },//3
       )
       .setTimestamp()
-      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
+      .setFooter({ text: "brought to you by frogspawn.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [startEmbed] });
   };
 });
@@ -66,7 +66,7 @@ client.on("messageCreate", (message) => {
   if (message.content.startsWith("!donate")) {
     const donateEmbed = new EmbedBuilder()
       .setTitle(userName + ", I'm so glad you decided to help me and my friends out! Here's what you can do: ")
-            .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
+            .setAuthor({ name: 'frogspawn', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setColor(0x0099FF)
       .addFields(
         { name: 'A Frog House', value: "A center for local advocacy, worldwide collaboration, and ecological education that works on behalf of amphibians and the citizens of upstate New York, advocating for chemical free properties, clean water, and healthy wetlands. [Donate here!](https://afroghouse.org/donate)" },//1 
@@ -75,7 +75,7 @@ client.on("messageCreate", (message) => {
         { name: 'WWF - Adopt a Frog', value: "Symbolic animal adoption generously supports WWF’s global conservation efforts and build a future where people live in harmony with nature. [Donate here!](https://gifts.worldwildlife.org/gift-center/gifts/Species-Adoptions/Red-Eyed-Tree-Frog.aspx)" },//3
       )
       .setTimestamp()
-      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
+      .setFooter({ text: "brought to you by frogspawn.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [donateEmbed] });
   };
 });
@@ -86,15 +86,15 @@ client.on("messageCreate", (message) => {
   if (message.content.startsWith("!about")) {
     const donateEmbed = new EmbedBuilder()
       .setTitle(userName + ", want to learn more about me?")
-      .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
+      .setAuthor({ name: 'frogspawn', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setColor(0x0099FF)
       .addFields(
-        { name: 'About Me', value: "Hi there! I'm [bot], developed lovingly by three chronically online gamers at HackHERS 2023! Created at the intersection of the developers' interests, I aim to provide awareness to certain species of frogs based on their 'rarity' - that is, how endangered they are. Critically endangered species are harder to roll for (unless you have luck!), and vice versa. We all hope you enjoy! :)"},
-        { name: 'Website', value: "[Found here!](https://i.pinimg.com/736x/50/c4/8c/50c48c181116c4305840875216be56b0.jpg)", inline: true }, // SEE IF YOU WANT TO CHANGE WEBSITE NAME
-        { name: 'Github', value: "[Found here!](https://github.com/km776/frogsinstem)", inline: true },//2
-        { name: 'Replit', value: "[Found here!](https://i.pinimg.com/736x/50/c4/8c/50c48c181116c4305840875216be56b0.jpg)", inline: true }) // PUBLISH REPLIT LOL
+        { name: 'About Me', value: "Hi there! I'm frogspawn, developed lovingly by three chronically online gamers at HackHERS 2023! Created at the intersection of the developers' interests, I aim to provide awareness to certain species of frogs based on their 'rarity' - that is, how endangered they are. Critically endangered species are harder to roll for (unless you have luck!), and vice versa. We all hope you enjoy! :)"},
+        { name: 'Website', value: "[Found here!](https://km776.github.io/frogspawn/)", inline: true },
+        { name: 'Github', value: "[Found here!](https://github.com/km776/frogspawn)", inline: true },//2
+        { name: 'Replit', value: "[Found here!](https://replit.com/@KapilaMane/frogspawn?v=1)", inline: true }) // PUBLISH REPLIT LOL
       .setTimestamp()
-      .setFooter({ text: "brought to you by frogsinSTEM.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
+      .setFooter({ text: "brought to you by frogspawn.", iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     message.channel.send({ embeds: [donateEmbed] });
   };
 });
@@ -195,6 +195,25 @@ function frogDescribe() {
   }
 }
 
+// function randomImg
+function randomImg() {
+  imgCommon = ["https://nationalzoo.si.edu/sites/default/files/animals/smoothsidedtoad-001.jpg", "https://museum.wa.gov.au/sites/default/files/imagecache/wam_v2_page_full_gallery/photo-galleries/555.jpeg", "https://museum.wa.gov.au/sites/default/files/imagecache/wam_v2_page_full_gallery/photo-galleries/505.jpeg", "https://live.staticflickr.com/4109/5394733582_a42a0d9fe0_b.jpg", "https://museum.wa.gov.au/sites/default/files/imagecache/wam_v2_page_full_gallery/photo-galleries/271.jpeg", "https://inaturalist-open-data.s3.amazonaws.com/photos/46983005/original.jpg", "https://res.cloudinary.com/ausmus/image/upload/c_fill,g_auto,h_450,q_auto,w_800/b7qp9djeqekbmynhoxzm", "https://inaturalist-open-data.s3.amazonaws.com/photos/1656167/large.jpg", "https://upload.wikimedia.org/wikipedia/commons/3/37/Eleutherodactylus_mimus.jpg", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Litoria_nasuta.JPG", "https://media.australian.museum/media/dd/images/Some_image.width-1600.4c73ba1.jpg", "https://www.edgeofexistence.org/wp-content/uploads/2017/05/Latonia_nigriventer_Photo_Frank_Glaw-1.jpg"]
+  imgRare = ["http://thebdi.org/wp-content/uploads/2021/11/005885-1.jpg", "https://upload.wikimedia.org/wikipedia/commons/b/ba/Mixophyes_iteratus.jpg", "https://upload.wikimedia.org/wikipedia/commons/d/d7/Goliath_Frog.jpg", "https://upload.wikimedia.org/wikipedia/commons/f/f4/Rana_de_Junin_22.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sphagnum_Frog_-_Philoria_sphagnicolus.jpg/1200px-Sphagnum_Frog_-_Philoria_sphagnicolus.jpg", "https://upload.wikimedia.org/wikipedia/commons/3/37/Taudactylus_eungellensis_1.jpg"]
+  imgLegendary = ["https://www.environment.act.gov.au/__data/assets/image/0003/751287/Cfrog5.JPG", "https://museum.wa.gov.au/sites/default/files/imagecache/wam_v2_page_full_gallery/photo-galleries/256.jpeg"]
+  if (frogRarity == '★★★★★') {
+    let frogImg = imgLegendary[indexFrog];
+    return frogImg;
+  }
+  else if (frogRarity == '★★★★') {
+    let frogImg = imgRare[indexFrog];
+    return frogImg;
+  }
+  else if (frogRarity == '★★★') {
+    let frogImg = imgCommon[indexFrog];
+    return frogImg;
+  }
+}
+
 //frogGacha();
 //randomName();
 // speciesType();
@@ -218,22 +237,23 @@ client.on("messageCreate", (message) => {
 client.on("messageCreate", (message) => {
   if (message.content.startsWith("!friend")) {
     frogRarity = frogGacha();
-    frogName = randomName();
+    frogSpecies = randomName();
+    frogImg = randomImg();
     // randomizes rarity every single time the command is called WHICH IS WHAT I WANTED BUT DIDNT REALIZE
     const friendEmbed = new EmbedBuilder()
       .setColor(0x0099FF)
-      .setTitle(frogName) // rotate through a list of names -- YES IT WORKS
-      .setAuthor({ name: 'frogsinSTEM', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
+      .setTitle(frogSpecies) // rotate through a list of names -- YES IT WORKS
+      .setAuthor({ name: 'frogspawn', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png', url: 'https://www.google.com/' })
       .setURL(frogURL())
-      .setAuthor({ name: 'frogsinstem', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' })
+      .setAuthor({ name: 'frogspawn', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' })
       .setDescription(frogDescribe())
       .addFields(
         { name: '\u200B', value: '\u200B' },
         { name: 'Scientific Name', value: frogScience(), inline: true },
         { name: 'Rarity', value: frogRarity, inline: true })
-      .setImage('https://cdn.discordapp.com/attachments/1031064989643051078/1031227057939693599/unknown.png') // put frog generated characters here
+      .setImage(frogImg) // put images
       .setTimestamp()
-      .setFooter({ text: 'brought to you by frogsinstem!', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
+      .setFooter({ text: 'brought to you by frogspawn!', iconURL: 'https://cdn.discordapp.com/attachments/1074034215802372118/1074113960451784794/image.png' });
     
     let userName = message.author.username;
     message.channel.send({ embeds: [friendEmbed] });
