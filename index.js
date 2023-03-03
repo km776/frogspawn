@@ -1,5 +1,6 @@
 // go to shell and type 'kill 1' to rehost and make sure bot works again
 // heroku our beloved ??
+// 3.2.2022 - lets uh. lets try using arrays next time.
 
 // all commands so far: !friend, !ping, frog reaction
 // want to add: !fact
@@ -11,7 +12,7 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 var frogRarity = frogGacha();
 var indexFrog = 0;
-var frogName, frogSpecies;
+var frogName, frogSpecies, frogScientific;
 // var nameKey = ["'★★★' = COMMON", "'★★★★' = RARE", "'★★★★★' = LEGENDARY"]
 
 // declaring intents, remember to edit bot perms
@@ -237,6 +238,7 @@ client.on("messageCreate", (message) => {
 client.on("messageCreate", (message) => {
   if (message.content.startsWith("!friend")) {
     frogRarity = frogGacha();
+    frogScientific = frogScience();
     frogSpecies = randomName();
     frogImg = randomImg();
     // randomizes rarity every single time the command is called WHICH IS WHAT I WANTED BUT DIDNT REALIZE
@@ -249,7 +251,7 @@ client.on("messageCreate", (message) => {
       .setDescription(frogDescribe())
       .addFields(
         { name: '\u200B', value: '\u200B' },
-        { name: 'Scientific Name', value: frogScience(), inline: true },
+        { name: 'Scientific Name', value: frogScientific, inline: true },
         { name: 'Rarity', value: frogRarity, inline: true })
       .setImage(frogImg) // put images
       .setTimestamp()
@@ -264,5 +266,3 @@ client.on("messageCreate", (message) => {
 const mySecret = process.env['TOKEN']
 client.login(mySecret);
 // ^^
-
-
